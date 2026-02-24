@@ -9,3 +9,6 @@ This is a Spring Boot API practice project.
 - Java
 - Spring Boot
 - Gradle
+
+##Author
+Yugo
