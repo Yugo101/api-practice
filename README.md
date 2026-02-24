@@ -11,4 +11,5 @@ This is a Spring Boot API practice project.
 - Gradle
 
 ##Author
-Yugo A
+MAIN VERSION
+BRANCH VERSION
