@@ -11,11 +11,11 @@ public class TaskService {
         this.repo = repo;
     }
 
-    public Task saveTask(Task task){
+    public Task save(Task task){
         return repo.save(task);
     }
 
-    public List<Task> getAllTasks(){
+    public List<Task> findAll(){
         return repo.findAll();
     }
 }
