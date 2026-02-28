@@ -18,4 +18,18 @@ public class TaskService {
     public List<Task> findAll(){
         return repo.findAll();
     }
+
+    public Task update(Long id, Task updatedTask){
+        Task task = repo.findById(id).orElseThrow(() -> new RuntimeException("Task not found"));
+
+        task.setTitle(updatedTask.getTitle());
+        task.setCompleted(updatedTask.isCompleted());
+
+        return repo.save(task);
+
+    }
+
+    public void delete(Long id){
+        repo.deleteById(id);
+    }
 }
