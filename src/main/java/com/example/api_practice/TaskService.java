@@ -2,34 +2,59 @@ package com.example.api_practice;
 
 import org.springframework.stereotype.Service;
 import java.util.List;
+import com.example.api_practice.dto.TaskRequest;
+import com.example.api_practice.dto.TaskResponse;
 
 @Service
 public class TaskService {
-    private final TaskRepository repo;
+    private final TaskRepository taskRepository;
 
-    public TaskService(TaskRepository repo){
-        this.repo = repo;
+    public TaskService(TaskRepository taskRepository){
+        this.taskRepository = taskRepository;
     }
 
-    public Task save(Task task){
-        return repo.save(task);
+    public List<TaskResponse> getAllTasks(){
+        return taskRepository.findAll()
+                .stream()
+                .map(task -> new TaskResponse(
+                        task.getId(),
+                        task.getTitle(),
+                        task.isCompleted()
+                ))
+                .toList();
     }
 
-    public List<Task> findAll(){
-        return repo.findAll();
+    public TaskResponse createTask(TaskRequest request){
+        Task task = new Task();
+        task.setTitle(request.getTitle());
+        task.setCompleted(request.isCompleted());
+
+        Task savedTask = taskRepository.save(task);
+
+        return new TaskResponse(
+                savedTask.getId(),
+                savedTask.getTitle(),
+                savedTask.isCompleted()
+        );
     }
 
-    public Task update(Long id, Task updatedTask){
-        Task task = repo.findById(id).orElseThrow(() -> new RuntimeException("Task not found"));
+    public TaskResponse updateTask(Long id, TaskRequest request){
+        Task task = taskRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Task not found"));
 
-        task.setTitle(updatedTask.getTitle());
-        task.setCompleted(updatedTask.isCompleted());
+        task.setTitle(request.getTitle());
+        task.setCompleted(request.isCompleted());
 
-        return repo.save(task);
+        Task updated = taskRepository.save(task);
 
+        return new TaskResponse(
+                updated.getId(),
+                updated.getTitle(),
+                updated.isCompleted()
+        );
     }
 
-    public void delete(Long id){
-        repo.deleteById(id);
+    public void deleteTask(Long id){
+        taskRepository.deleteById(id);
     }
 }
