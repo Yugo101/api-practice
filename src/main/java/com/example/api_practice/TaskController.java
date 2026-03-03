@@ -38,6 +38,17 @@ public class TaskController {
         return response;
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Map<String, Object>> getTask(@PathVariable Long id){
+        TaskResponse task = service.getTaskById(id);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("status", "success");
+        response.put("data", task);
+
+        return ResponseEntity.ok(response);
+    }
+
     @PostMapping
     public ResponseEntity<Map<String, Object>> createTask(@Valid @RequestBody TaskRequest  request){
         TaskResponse task = service.createTask(request);
@@ -52,17 +63,17 @@ public class TaskController {
     }
 
     @PutMapping("/{id}")
-    public Map<String, Object> updateTask(@PathVariable Long id,
-                                   @Valid @RequestBody TaskRequest request){
+    public ResponseEntity<Map<String, Object>> updateTask(
+            @PathVariable Long id,
+            @Valid @RequestBody TaskRequest request){
 
         TaskResponse updated = service.updateTask(id, request);
-
 
         Map<String, Object> response = new HashMap<>();
         response.put("status", "success");
         response.put("data", updated);
 
-        return response;
+        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{id}")
