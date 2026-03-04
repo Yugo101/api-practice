@@ -24,6 +24,17 @@ public class TaskService {
                 .toList();
     }
 
+    public TaskResponse getTaskById(Long id){
+        Task task = taskRepository.findById(id)
+                .orElseThrow(() -> new TaskNotFoundException("Task not found"));
+
+        return new TaskResponse(
+                task.getId(),
+                task.getTitle(),
+                task.isCompleted()
+        );
+    }
+
     public TaskResponse createTask(TaskRequest request){
         Task task = new Task();
         task.setTitle(request.getTitle());
@@ -40,7 +51,7 @@ public class TaskService {
 
     public TaskResponse updateTask(Long id, TaskRequest request){
         Task task = taskRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Task not found"));
+                .orElseThrow(() -> new TaskNotFoundException("Task not found"));
 
         task.setTitle(request.getTitle());
         task.setCompleted(request.isCompleted());
@@ -58,7 +69,7 @@ public class TaskService {
         System.out.println("deleteTask called with id: " + id);
         if (!taskRepository.existsById(id)){
             System.out.println("Not found");
-           throw new RuntimeException("Task not found");
+           throw new TaskNotFoundException("Task not found");
         }
 
         taskRepository.deleteById(id);
