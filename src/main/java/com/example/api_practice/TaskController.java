@@ -25,7 +25,7 @@ public class TaskController {
         List<TaskResponse> tasks = service.getAllTasks();
 
         return ResponseEntity.ok(
-                new ApiResponse<>("success", tasks)
+                ApiResponse.success(tasks)
         );
     }
 
@@ -34,7 +34,7 @@ public class TaskController {
         TaskResponse task = service.getTaskById(id);
 
         return ResponseEntity.ok(
-                new ApiResponse<>("success", task)
+                ApiResponse.success(task)
         );
     }
 
@@ -45,7 +45,8 @@ public class TaskController {
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(new ApiResponse<>("success", created));
+                .body(ApiResponse.success(created)
+                );
     }
 
     @PutMapping("/{id}")
@@ -56,7 +57,7 @@ public class TaskController {
         TaskResponse updated = service.updateTask(id, request);
 
         return ResponseEntity.ok(
-                new ApiResponse<>("success", updated)
+               ApiResponse.success(updated)
         );
     }
 
