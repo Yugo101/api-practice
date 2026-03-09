@@ -1,9 +1,6 @@
-package com.example.api_practice;
+package com.example.api_practice.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Task {
@@ -13,12 +10,16 @@ public class Task {
 
     private String title;
 
-    private boolean completed;
+    private String description;
 
-    public Task(){}
+    private boolean completed = false;
 
-    public Task(String title){
+    public Task(){
+    }
+
+    public Task(String title, String description) {
         this.title = title;
+        this.description = description;
     }
 
     public Long getId(){
@@ -29,12 +30,24 @@ public class Task {
         return title;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     public boolean isCompleted() {
         return completed;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public void setTitle(String title){
         this.title = title;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public void setCompleted(boolean completed) {
