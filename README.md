@@ -1,135 +1,131 @@
-# Task Management API (Spring Boot)
+# Task Management API
 
-## Overview
-
-Task Management API is a RESTful backend application built with **Spring Boot**.
-It provides basic **CRUD operations for task management**, allowing users to create, read, update, and delete tasks.
-
-This project was developed to practice **REST API design, Spring Boot architecture, and database integration**.
+Spring Boot を使用して作成したシンプルなタスク管理 REST API です。  
+Docker を利用することで、Spring Boot と MySQL を簡単に起動できます。
 
 ---
 
-## Tech Stack
+# 概要
 
-* Java 21
-* Spring Boot 3
-* Spring Data JPA
-* MySQL
-* Gradle
-* Swagger (OpenAPI)
-* Spring Security
-* JWT Authentication
+タスクの作成・取得・更新・削除（CRUD）を行う REST API です。
 
----
+ポートフォリオとして以下の技術を学習・実装しました。
 
-## Features
-
-* Create a task
-* Get all tasks (pagination supported)
-* Get task by ID
-* Update task
-* Delete task
-* JWT-based authentication
-* API request/response logging
-* Swagger API documentation
+- Spring Boot
+- REST API設計
+- JPA（Hibernate）
+- MySQL
+- Swagger（APIドキュメント）
+- Docker
+- GitHub
 
 ---
 
-## API Endpoints
+# 使用技術
 
-| Method | Endpoint    | Description    |
-| ------ | ----------- | -------------- |
-| GET    | /tasks      | Get task list  |
-| GET    | /tasks/{id} | Get task by id |
-| POST   | /tasks      | Create task    |
-| PUT    | /tasks/{id} | Update task    |
-| DELETE | /tasks/{id} | Delete task    |
-
----
-
-## Example Request
-
-### Create Task
-
-POST /tasks
-
-```
-{
-  "title": "Study Spring Boot",
-  "description": "Build REST API"
-}
-```
-
-### Response
-
-```
-{
-  "id": 1,
-  "title": "Study Spring Boot",
-  "description": "Build REST API",
-  "completed": false
-}
-```
+| 技術 | バージョン |
+|-----|------|
+| Java | 21 |
+| Spring Boot | 3.x |
+| Gradle | 9 |
+| MySQL | 8 |
+| Docker | 最新 |
+| Swagger | springdoc-openapi |
 
 ---
 
-## Database Schema
+# 機能一覧
 
-```
-task
- ├─ id (BIGINT, PK)
- ├─ title (VARCHAR)
- ├─ description (VARCHAR)
- └─ completed (BOOLEAN)
-```
+- タスク作成
+- タスク一覧取得
+- タスク詳細取得
+- タスク更新
+- タスク削除
 
 ---
 
-## API Documentation
+# API エンドポイント
 
-Swagger UI is available at:
+| Method | Endpoint | 説明 |
+|------|------|------|
+| POST | /tasks | タスク作成 |
+| GET | /tasks | タスク一覧取得 |
+| GET | /tasks/{id} | タスク詳細取得 |
+| PUT | /tasks/{id} | タスク更新 |
+| DELETE | /tasks/{id} | タスク削除 |
 
-```
+---
+
+# 環境構築（Docker）
+
+## 1. リポジトリをクローン
+git clone https://github.com/Yugo101/api-practice.git
+cd api-practice
+
+## 2. アプリケーションビルド
+
+./gradlew build -x test
+
+shell
+コードをコピーする
+
+## 3. Docker 起動
+
+docker compose up --build
+
+yaml
+コードをコピーする
+
+起動すると以下のコンテナが立ち上がります。
+
+- Spring Boot
+- MySQL
+
+---
+
+# API確認（Swagger）
+
+ブラウザで以下にアクセスしてください。
+
 http://localhost:8080/swagger-ui/index.html
-```
+
+yaml
+コードをコピーする
+
+Swagger UI から API をテストできます。
 
 ---
 
-## Run Locally
+# ディレクトリ構成
 
-### Clone repository
+api-practice
+├── Dockerfile
+├── docker-compose.yml
+├── build.gradle
+└── src/main
+├── java/com/example/apipractice
+│   ├── controller
+│   ├── service
+│   ├── repository
+│   └── entity
+└── resources
+├── application.properties
+└── application-docker.properties
 
-```
-git clone https://github.com/yourusername/task-api.git
-```
-
-### Move to project
-
-```
-cd task-api
-```
-
-### Run application
-
-```
-./gradlew bootRun
-```
-
----
-
-## Author
-
-GitHub
-https://github.com/yourusername
+yaml
+コードをコピーする
 
 ---
 
-## Purpose
+# 今後の改善
 
-This project was built to practice:
+今後以下の機能追加を予定しています。
 
-* REST API development
-* Spring Boot architecture
-* Database integration
-* API documentation
-* Backend engineering skills
+- JWT認証
+- ユーザー管理機能
+- ページネーション
+- バリデーション
+- テストコード
+- CI/CD（GitHub Actions）
+
+---
